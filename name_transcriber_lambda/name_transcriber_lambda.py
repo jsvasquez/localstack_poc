@@ -72,11 +72,11 @@ if __name__ == "__main__":
                 's3SchemaVersion': '1.0',
                 'configurationId': 'testConfigRule',
                 'bucket': {
-                'name': 'cloudapp-files',
+                'name': 'a_bucket',
                 'ownerIdentity': {
                     'principalId': 'A3NL1KOZZKExample'
                 },
-                'arn': 'arn:aws:s3:::cloudapp-files'
+                'arn': 'arn:aws:s3:::a_bucket'
                 },
                 'object': {
                 'key': 'hey/.gitignore4',
