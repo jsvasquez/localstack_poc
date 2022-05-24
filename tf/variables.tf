@@ -36,5 +36,5 @@ variable "cluster_id" {
 
 variable "localstack_service_name" {
   description = "Localstack Docker-compose service name"
-  default = "localstack"
+  default     = "localstack"
 }

@@ -1,11 +1,11 @@
 output "redis_endpoint" {
   description = "The endpoint to access the redis cluster from the host machine, not from lambda."
-  value = "localhost:${aws_elasticache_cluster.redis_cluster.port}"
+  value       = "localhost:${aws_elasticache_cluster.redis_cluster.port}"
 }
 
 output "lambda_arn" {
   description = "The ARN of the Lambda function"
-  value = module.transcriber_lambda.function_arn
+  value       = module.transcriber_lambda.function_arn
 }
 
 output "lambda_role_name" {
