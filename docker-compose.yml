@@ -1,0 +1,26 @@
+
+
+version: '3.8'
+
+services:
+    localstack:
+        container_name: "localstack_main"
+        image: localstack/localstack:latest
+        environment:
+            - SERVICES=lambda,s3,vpc,elasticache,sts,iam
+            - LAMBDA_EXECUTOR=docker_reuse
+            - DOCKER_HOST=unix:///var/run/docker.sock
+            - DEFAULT_REGION=us-east-1
+            - DEBUG=1
+            - LOCALSTACK_API_KEY=${LOCALSTACK_API_KEY- }
+        ports:
+            - "53:53"
+            - "53:53/udp"
+            - "443:443"
+            - "4510-4559:4510-4559"
+            - "4566:4566"
+            - "4571:4571"
+        volumes:
+            - /var/run/docker.sock:/var/run/docker.sock
+        networks:
+            default:
