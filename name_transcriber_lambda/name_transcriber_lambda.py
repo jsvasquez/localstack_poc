@@ -1,6 +1,10 @@
-import redis
+"""
+AWS Lambda that will get triggered by an S3 bucket file upload.
+The Lambda stores names of uploaded files in a list in ElastiCache (Redis).
+"""
 import os
 import logging
+import redis
 
 # Setting up root logger
 LOG_LEVEL = logging.DEBUG if os.environ.get("DEBUG") == "1" else logging.INFO
@@ -19,6 +23,9 @@ else:
 logger = logging.getLogger(__name__)
 
 def send_objects_to_redis(object_keys: list) -> bool:
+    """
+        Given a list of string, sends each element to a given Redis Cluster.
+    """
     redis_endpoint = os.environ["REDIS_ENDPOINT"]
     redis_port     = os.environ["REDIS_PORT"]
 
@@ -36,21 +43,24 @@ def send_objects_to_redis(object_keys: list) -> bool:
     keys_response = redis_client.rpush("object_keys", *object_keys)
     names_response = redis_client.rpush("object_names", *object_names)
 
-    logger.debug(f"{keys_response=}")
-    logger.debug(f"{names_response=}")
+    logger.debug("%s", keys_response)
+    logger.debug("%s", names_response)
 
     logger.info("Records successfully pushed to Redis")
     return True
 
 
 def lambda_handler(event, context):
+    """AWS Lambda entrypoint"""
     logger.debug(event)
-    object_keys = list(map(lambda record: record["s3"]["object"]["key"], event.get("Records", [])))
+    logger.debug(context)
+    object_keys = list(map(lambda record: record["s3"]["object"]["key"],
+                           event.get("Records", [])))
 
     send_objects_to_redis(object_keys)
 
 if __name__ == "__main__":
-    event = {
+    test_event = {
         'Records': [
             {
             'eventVersion': '2.1',
@@ -89,4 +99,4 @@ if __name__ == "__main__":
             }
         ]
     }
-    lambda_handler(event, None)
+    lambda_handler(test_event, None)
