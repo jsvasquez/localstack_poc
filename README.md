@@ -77,6 +77,7 @@ It says PONG, so we are ready to go!
 
 Let's copy a file to s3 to test the lambda:
 ```bash
+cd ..
 awslocal s3 cp testing_file.txt s3://files-redis-cloudapp/
 ```
 And let's retrieve the values in the Redis cluster for the lists `object_names` and `object_keys`:
@@ -92,6 +93,16 @@ We can see the name of the testing file that we just used (testing_file.txt) and
 
 Thanks for reading!
 
+## Checking Lambda logs
+```bash
+# Use this command to see a list of logstreams for your lambda
+awslocal logs describe-log-streams --log-group-name '/aws/lambda/redis-cloudapp_transcriber_default' --query logStreams[*].logStreamName
+
+# Pick one and then see all the events by using the command below
+awslocal logs get-log-events --log-group-name '/aws/lambda/redis-cloudapp_transcriber_default' --log-stream-name <<YOUR_LOGSTREAM_NAME>>
+#e.g.
+awslocal logs get-log-events --log-group-name '/aws/lambda/redis-cloudapp_transcriber_default' --log-stream-name 2022/05/24/[LATEST]fd37f362
+```
 ## Docs used:
 
 * https://github.com/localstack/localstack
@@ -99,7 +110,6 @@ Thanks for reading!
 * https://docs.localstack.cloud/get-started/#docker-compose
 * https://docs.localstack.cloud/integrations/terraform/
 * https://github.com/hashicorp/terraform-elasticache-example
-
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
