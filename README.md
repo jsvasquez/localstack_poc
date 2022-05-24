@@ -100,7 +100,7 @@ awslocal logs describe-log-streams --log-group-name '/aws/lambda/redis-cloudapp_
 
 # Pick one and then see all the events by using the command below
 awslocal logs get-log-events --log-group-name '/aws/lambda/redis-cloudapp_transcriber_default' --log-stream-name <<YOUR_LOGSTREAM_NAME>>
-#e.g.
+# e.g.
 awslocal logs get-log-events --log-group-name '/aws/lambda/redis-cloudapp_transcriber_default' --log-stream-name 2022/05/24/[LATEST]fd37f362
 ```
 ## Docs used:
