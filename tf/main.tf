@@ -56,7 +56,7 @@ module "transcriber_lambda" {
   // Add environment variables.
   environment = {
     variables = {
-      REDIS_ENDPOINT = var.localstack_service_name
+      REDIS_ENDPOINT = var.redis_enpoint
       REDIS_PORT     = aws_elasticache_cluster.redis_cluster.port
       DEBUG          = var.debug
     }

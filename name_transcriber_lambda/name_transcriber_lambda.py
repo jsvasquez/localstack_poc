@@ -26,8 +26,8 @@ def send_objects_to_redis(object_keys: list) -> bool:
     """
         Given a list of string, sends each element to a given Redis Cluster.
     """
-    redis_endpoint = os.environ["REDIS_ENDPOINT"]
-    redis_port     = os.environ["REDIS_PORT"]
+    redis_endpoint = os.environ.get("LOCALSTACK_HOSTNAME") or os.environ.get("REDIS_ENDPOINT")
+    redis_port     = os.environ.get("REDIS_PORT", 4510)
 
     logger.info("Starting push to Redis")
     logger.debug("Will push both object keys and object names.")

@@ -34,7 +34,7 @@ variable "cluster_id" {
   default     = "redis-cluster"
 }
 
-variable "localstack_service_name" {
-  description = "Localstack Docker-compose service name"
+variable "redis_enpoint" {
+  description = "Redis endpoint for deployment when outside localstack"
   default     = "localstack"
 }
